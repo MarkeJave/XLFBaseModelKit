@@ -11,17 +11,17 @@
 		3393B72919B6FB17005CA444 /* XLFBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3393B71A19B6FB17005CA444 /* XLFBaseModel.m */; };
 		3393B73219B6FB17005CA444 /* XLFRunTime.h in Headers */ = {isa = PBXBuildFile; fileRef = 3393B72619B6FB17005CA444 /* XLFRunTime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3393B73319B6FB17005CA444 /* XLFRunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3393B72719B6FB17005CA444 /* XLFRunTime.m */; };
-		33A33C6A1ABC142B00F54CDD /* XLFBaseModelKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3393B6C919B6F658005CA444 /* XLFBaseModelKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B39CD5DF1CB783AC0075B10E /* XLFBaseModelKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B39CD5DE1CB783AC0075B10E /* XLFBaseModelKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		33373E8F1ADA618300D4BD0C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3393B62519B6E8B2005CA444 /* XLFBaseModelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XLFBaseModelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3393B6C919B6F658005CA444 /* XLFBaseModelKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLFBaseModelKit.h; sourceTree = "<group>"; };
 		3393B71919B6FB17005CA444 /* XLFBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFBaseModel.h; sourceTree = "<group>"; };
 		3393B71A19B6FB17005CA444 /* XLFBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFBaseModel.m; sourceTree = "<group>"; };
 		3393B72619B6FB17005CA444 /* XLFRunTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFRunTime.h; sourceTree = "<group>"; };
 		3393B72719B6FB17005CA444 /* XLFRunTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFRunTime.m; sourceTree = "<group>"; };
+		B39CD5DE1CB783AC0075B10E /* XLFBaseModelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFBaseModelKit.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +39,6 @@
 			isa = PBXGroup;
 			children = (
 				3393B71819B6FB17005CA444 /* BaseModel */,
-				3393B6C919B6F658005CA444 /* XLFBaseModelKit.h */,
 				3355CBB819A4870000496AB9 /* Frameworks */,
 				3355CBB719A4870000496AB9 /* Products */,
 			);
@@ -64,6 +63,7 @@
 		3393B71819B6FB17005CA444 /* BaseModel */ = {
 			isa = PBXGroup;
 			children = (
+				B39CD5DE1CB783AC0075B10E /* XLFBaseModelKit.h */,
 				3393B71919B6FB17005CA444 /* XLFBaseModel.h */,
 				3393B71A19B6FB17005CA444 /* XLFBaseModel.m */,
 				3393B72519B6FB17005CA444 /* RunTime */,
@@ -89,8 +89,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3393B72819B6FB17005CA444 /* XLFBaseModel.h in Headers */,
-				33A33C6A1ABC142B00F54CDD /* XLFBaseModelKit.h in Headers */,
 				3393B73219B6FB17005CA444 /* XLFRunTime.h in Headers */,
+				B39CD5DF1CB783AC0075B10E /* XLFBaseModelKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
