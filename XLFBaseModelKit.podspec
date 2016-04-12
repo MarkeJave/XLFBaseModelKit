@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
  s.source = { :git => 'https://github.com/MarkeJave/XLFBaseModelKit.git', :tag => s.version.to_s }
  s.source_files = 'BaseModelCombine/*.{h,m}', 'BaseModelCombine/**/*.{h,m}'
  s.requires_arc = true
- s.frameworks = 'CoreText', 'QuartzCore', 'MobileCoreServices', 'CoreFoundation', 'CoreGraphics', 'UIKit', 'CoreTelephone', 'CFNetwork', 'Security', 'SystemConfiguration', 'AVFoundation', 'Foundation'
+ s.frameworks = 'Foundation'
  s.platform = :ios
  s.ios.deployment_target = '7.0'
 
