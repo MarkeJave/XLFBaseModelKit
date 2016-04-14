@@ -133,21 +133,21 @@
 
 @end
 
-@interface XLFBaseModel (KVO)
-
-- (void)addObserverForNewValue:(NSObject *)observer;
-- (void)addObserverForOldValueChanged:(NSObject *)observer;
-
-- (void)addObserverForNewValue:(NSObject *)observer keyPaths:(NSArray *)keyPaths;
-- (void)addObserverForOldValueChanged:(NSObject *)observer keyPaths:(NSArray *)keyPaths;
-
-- (void)removeAllObserver;
-- (void)removeObserver:(NSObject *)observer;
-- (void)removeObserver:(NSObject *)observer keyPaths:(NSArray *)keyPaths;
-
-- (NSArray *)observableKeypaths;
-
-@end
+//@interface XLFBaseModel (KVO)
+//
+//- (void)addObserverForNewValue:(NSObject *)observer;
+//- (void)addObserverForOldValueChanged:(NSObject *)observer;
+//
+//- (void)addObserverForNewValue:(NSObject *)observer keyPaths:(NSArray *)keyPaths;
+//- (void)addObserverForOldValueChanged:(NSObject *)observer keyPaths:(NSArray *)keyPaths;
+//
+//- (void)removeAllObserver;
+//- (void)removeObserver:(NSObject *)observer;
+//- (void)removeObserver:(NSObject *)observer keyPaths:(NSArray *)keyPaths;
+//
+//- (NSArray *)observableKeypaths;
+//
+//@end
 
 @interface XLFBaseModel (KV)
 

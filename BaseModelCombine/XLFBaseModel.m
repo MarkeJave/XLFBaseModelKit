@@ -16,6 +16,27 @@
 @implementation FORCELOAD_XLFBaseModel
 @end
 
+
+@implementation NSDictionary (NotBlank)
+
+- (NSDictionary *)notBlackDictionary{
+    
+    NSMutableDictionary *etNotBlankAttributes = [NSMutableDictionary dictionaryWithDictionary:self];
+    
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL * _Nonnull stop) {
+        
+        if ([obj isEqual:[NSNull null]] ||
+            (([obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSArray class]]) && ![obj count])) {
+            
+            [etNotBlankAttributes removeObjectForKey:key];
+        }
+    }];
+    
+    return etNotBlankAttributes;
+}
+
+@end
+
 @implementation NSObject(XLFBaseModel)
 
 - (id)modelWithClass:(Class)_class;{
@@ -278,13 +299,14 @@
 
 - (id)initWithAttributes:(NSDictionary* )attributes;{
     self = [self init];
-    if (![attributes isKindOfClass:[NSDictionary class]]) {
+    
+    if (!attributes || ![attributes isKindOfClass:[NSDictionary class]]) {
         return nil;
     }
     
     if (self ) {
         
-        [self setAttributes:attributes];
+        [self setAttributes:[attributes notBlackDictionary]];
     }
     return self;
 }
@@ -311,114 +333,114 @@
 
 @end
 
-@implementation XLFBaseModel (KVO)
-
-- (void)addObserverForNewValue:(NSObject *)observer;{
-    
-    [self addObserverForNewValue:observer keyPaths:nil];
-}
-
-- (void)addObserverForOldValueChanged:(NSObject *)observer;{
-    
-    [self addObserverForOldValueChanged:observer keyPaths:nil];
-}
-
-- (void)removeObserver:(NSObject *)observer;{
-    
-    [self removeObserver:observer keyPaths:nil];
-}
-
-- (void)addObserverForNewValue:(NSObject *)observer keyPaths:(NSArray *)keyPaths;{
-    
-    keyPaths = (keyPaths && [keyPaths count]) ? keyPaths : [self observableKeypaths];
-    
-    for (NSString *keyPath in keyPaths) {
-        
-        [self addObserver:observer forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:NULL];
-    }
-}
-
-- (void)addObserverForOldValueChanged:(NSObject *)observer keyPaths:(NSArray *)keyPaths;{
-    
-    keyPaths = (keyPaths && [keyPaths count]) ? keyPaths : [self observableKeypaths];
-    
-    for (NSString *keyPath in keyPaths) {
-        
-        [self addObserver:observer forKeyPath:keyPath options:NSKeyValueObservingOptionOld context:NULL];
-    }
-}
-
-- (void)removeObserver:(NSObject *)observer keyPaths:(NSArray *)keyPaths;{
-    
-    if (!keyPaths || [keyPaths count]) {
-        
-        id observationInfo = [self observationInfo];
-        
-        if (observationInfo) {
-            
-            NSMutableArray *mutableKeyPaths = [NSMutableArray array];
-            
-            NSArray *observances = [XLFRunTime ivarValue:observationInfo ivarName:@"_observances"];
-            
-            for (id observance in observances) {
-                
-                id containtedObserver = [XLFRunTime ivarValue:observance ivarName:@"_observer"];
-                id property = [XLFRunTime ivarValue:observance ivarName:@"_property"];
-                
-                if (observer && [containtedObserver isEqual:observer] && property) {
-                    
-                    NSString *keyPath = [XLFRunTime ivarValue:property ivarName:@"_keyPath"];
-                    
-                    if (keyPath) {
-                        
-                        [mutableKeyPaths addObject:[keyPath mutableCopy]];
-                    }
-                }
-            }
-            keyPaths = mutableKeyPaths;
-        }
-    }
-    
-    //    keyPaths = (!keyPaths || [keyPaths count]) ? keyPaths : [self observableKeypaths];
-    
-    for (NSString *keyPath in keyPaths) {
-        
-        [self removeObserver:observer forKeyPath:keyPath];
-    }
-}
-
-- (void)removeAllObserver{
-    
-    id observationInfo = [self observationInfo];
-    
-    if (observationInfo) {
-        
-        NSArray *observances = [XLFRunTime ivarValue:observationInfo ivarName:@"_observances"];
-        
-        for (id observance in observances) {
-            
-            id observer = [XLFRunTime ivarValue:observance ivarName:@"_observer"];
-            id property = [XLFRunTime ivarValue:observance ivarName:@"_property"];
-            
-            if (observer && property) {
-                
-                NSString *keyPath = [XLFRunTime ivarValue:property ivarName:@"_keyPath"];
-                
-                if (keyPath) {
-                    
-                    [self removeObserver:observer forKeyPath:keyPath];
-                }
-            }
-        }
-    }
-}
-
-- (NSArray *)observableKeypaths {
-    
-    return [XLFRunTime ivarNameList:[self class]];
-}
-
-@end
+//@implementation XLFBaseModel (KVO)
+//
+//- (void)addObserverForNewValue:(NSObject *)observer;{
+//    
+//    [self addObserverForNewValue:observer keyPaths:nil];
+//}
+//
+//- (void)addObserverForOldValueChanged:(NSObject *)observer;{
+//    
+//    [self addObserverForOldValueChanged:observer keyPaths:nil];
+//}
+//
+//- (void)removeObserver:(NSObject *)observer;{
+//    
+//    [self removeObserver:observer keyPaths:nil];
+//}
+//
+//- (void)addObserverForNewValue:(NSObject *)observer keyPaths:(NSArray *)keyPaths;{
+//    
+//    keyPaths = (keyPaths && [keyPaths count]) ? keyPaths : [self observableKeypaths];
+//    
+//    for (NSString *keyPath in keyPaths) {
+//        
+//        [self addObserver:observer forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:NULL];
+//    }
+//}
+//
+//- (void)addObserverForOldValueChanged:(NSObject *)observer keyPaths:(NSArray *)keyPaths;{
+//    
+//    keyPaths = (keyPaths && [keyPaths count]) ? keyPaths : [self observableKeypaths];
+//    
+//    for (NSString *keyPath in keyPaths) {
+//        
+//        [self addObserver:observer forKeyPath:keyPath options:NSKeyValueObservingOptionOld context:NULL];
+//    }
+//}
+//
+//- (void)removeObserver:(NSObject *)observer keyPaths:(NSArray *)keyPaths;{
+//    
+//    if (!keyPaths || [keyPaths count]) {
+//        
+//        id observationInfo = [self observationInfo];
+//        
+//        if (observationInfo) {
+//            
+//            NSMutableArray *mutableKeyPaths = [NSMutableArray array];
+//            
+//            NSArray *observances = [XLFRunTime ivarValue:observationInfo ivarName:@"_observances"];
+//            
+//            for (id observance in observances) {
+//                
+//                id containtedObserver = [XLFRunTime ivarValue:observance ivarName:@"_observer"];
+//                id property = [XLFRunTime ivarValue:observance ivarName:@"_property"];
+//                
+//                if (observer && [containtedObserver isEqual:observer] && property) {
+//                    
+//                    NSString *keyPath = [XLFRunTime ivarValue:property ivarName:@"_keyPath"];
+//                    
+//                    if (keyPath) {
+//                        
+//                        [mutableKeyPaths addObject:[keyPath mutableCopy]];
+//                    }
+//                }
+//            }
+//            keyPaths = mutableKeyPaths;
+//        }
+//    }
+//    
+//    //    keyPaths = (!keyPaths || [keyPaths count]) ? keyPaths : [self observableKeypaths];
+//    
+//    for (NSString *keyPath in keyPaths) {
+//        
+//        [self removeObserver:observer forKeyPath:keyPath];
+//    }
+//}
+//
+//- (void)removeAllObserver{
+//    
+//    id observationInfo = [self observationInfo];
+//    
+//    if (observationInfo) {
+//        
+//        NSArray *observances = [XLFRunTime ivarValue:observationInfo ivarName:@"_observances"];
+//        
+//        for (id observance in observances) {
+//            
+//            id observer = [XLFRunTime ivarValue:observance ivarName:@"_observer"];
+//            id property = [XLFRunTime ivarValue:observance ivarName:@"_property"];
+//            
+//            if (observer && property) {
+//                
+//                NSString *keyPath = [XLFRunTime ivarValue:property ivarName:@"_keyPath"];
+//                
+//                if (keyPath) {
+//                    
+//                    [self removeObserver:observer forKeyPath:keyPath];
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//- (NSArray *)observableKeypaths {
+//    
+//    return [XLFRunTime ivarNameList:[self class]];
+//}
+//
+//@end
 
 @implementation XLFBaseModel (KV)
 
@@ -470,8 +492,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
     
-    self=[XLFRunTime initWithCoder:aDecoder withInstance:self];
-    return self;
+    return [XLFRunTime initWithCoder:aDecoder withInstance:self];
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
