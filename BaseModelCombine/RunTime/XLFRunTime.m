@@ -466,9 +466,11 @@
             // 取得变量的大小
             NSGetSizeAndAlignment([type cStringUsingEncoding:NSUTF8StringEncoding], &ivarSize, &ivarAlignment);
             // 变量指针
-            Byte *ivarPointer=(Byte *)((__bridge const void *)instance+offset);
+            Byte *ivarPointer=(Byte *)((__bridge const void *)instance + offset);
             
+            [instance willChangeValueForKey:[ivarName substringFromIndex:1]];
             [value getBytes:ivarPointer length:((NSData *)value).length];
+            [instance didChangeValueForKey:[ivarName substringFromIndex:1]];
         }
     }
 }
@@ -722,12 +724,12 @@
 
 + (void)setObject:(id)anObject forKey:(NSString*)aKey withInstance:(NSObject<XLFBaseModelInterface> *)instance;{
     
-    [self setIvarValue:instance ivarName:aKey value:anObject];
+    [self setIvarValue:instance ivarName:[NSString stringWithFormat:@"_%@",aKey] value:anObject];
 }
 
 + (id)objectForKey:(NSString*)aKey withInstance:(NSObject<XLFBaseModelInterface> *)instance;{
     
-    return [self ivarValue:instance ivarName:aKey];
+    return [self ivarValue:instance ivarName:[NSString stringWithFormat:@"_%@",aKey]];
 }
 
 + (void)clearWithInstance:(NSObject<XLFBaseModelInterface> *)instance;{
